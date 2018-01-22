@@ -32,6 +32,13 @@ database. For further information on this see http://timewarrior.net/some/url.
 !!! YOU ARE STRONGLY ADVISED TO BACKUP YOUR TIMEWARRIOR DATABASE BEFORE PROCEEDING !!!
 
 """)
+
+    # first chance to bail out
+
+    # gather data and print diagnostics
+
+    # last chance to bail out
+
     # export database
 
     # purge database
