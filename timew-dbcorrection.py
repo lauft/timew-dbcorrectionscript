@@ -3,6 +3,7 @@
 from __future__ import print_function
 import subprocess
 import os
+import json
 
 
 try:
@@ -69,9 +70,26 @@ database. For further information on this see http://timewarrior.net/some/url.
         exit(0)
 
     # export database
+    print("Exporting database...")
+    intervals = json.loads(subprocess.check_output(["timew", "export"]).decode("UTF-8").strip())
+
+    print("Extracted %d interval(s)" % len(intervals))
 
     # purge database
+    print("Purging database...")
+
+    for file in files:
+        print("Deleting " + os.path.join(database_path, "data", file))
+        os.remove(os.path.join(database_path, "data", file))
 
     # import database
+    print("Re-importing database...")
 
+    for interval in intervals:
+        if "start" in interval:
+            print(subprocess.check_output(["timew", "start", interval["start"]]).decode("UTF-8"))
+        if "end" in interval:
+            print(subprocess.check_output(["timew", "stop", interval["end"]]).decode("UTF-8"))
+
+    print("Done!")
     exit(0)
