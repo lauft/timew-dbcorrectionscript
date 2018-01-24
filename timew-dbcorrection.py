@@ -1,4 +1,5 @@
 from __future__ import print_function
+import subprocess
 
 try:
     input = raw_input
@@ -7,7 +8,7 @@ except NameError:
 
 
 def get_version():
-    return '0.0.0'
+    return subprocess.check_output(["timew", "--version"]).decode("UTF-8").strip()
 
 
 if __name__ == "__main__":
