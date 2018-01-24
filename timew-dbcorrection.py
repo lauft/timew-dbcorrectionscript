@@ -2,6 +2,8 @@
 
 from __future__ import print_function
 import subprocess
+import os
+
 
 try:
     input = raw_input
@@ -49,7 +51,16 @@ database. For further information on this see http://timewarrior.net/some/url.
         exit(0)
 
     # gather data and print diagnostics
-    
+    print("Gathering information...")
+
+    database_path = os.getenv("TIMEWARRIORDB", os.path.expanduser("~/.timewarrior"))
+    files = os.listdir(os.path.join(database_path, "data"))
+
+    print("Database path: '%s' (you can change this by setting environment variable TIMEWARRIORDB)" % database_path)
+    print("Found files: %s" % ", ".join(files))
+    print("")
+    print("The script will now extract your data, purge your database, and re-enter your intervals.")
+
     # last chance to bail out
     answer = input("Proceed? [y/N] ")
 
