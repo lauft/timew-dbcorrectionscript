@@ -1,5 +1,10 @@
 from __future__ import print_function
 
+try:
+    input = raw_input
+except NameError:
+    pass
+
 
 def get_version():
     return '0.0.0'
@@ -34,10 +39,20 @@ database. For further information on this see http://timewarrior.net/some/url.
 """)
 
     # first chance to bail out
+    answer = input("Proceed? [y/N] ")
+
+    if answer != "y" and answer != "Y":
+        print("Exiting script")
+        exit(0)
 
     # gather data and print diagnostics
-
+    
     # last chance to bail out
+    answer = input("Proceed? [y/N] ")
+
+    if answer != "y" and answer != "Y":
+        print("Exiting script")
+        exit(0)
 
     # export database
 
