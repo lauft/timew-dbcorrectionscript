@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
-import subprocess
-import os
-import json
 
+import json
+import os
+import subprocess
+import sys
 
 try:
     input = raw_input
@@ -14,6 +15,18 @@ except NameError:
 
 def get_version():
     return subprocess.check_output(["timew", "--version"]).decode("UTF-8").strip()
+
+
+def draw_progress_bar(percent, bar_length=20):
+    sys.stdout.write("\r")
+    progress = ""
+    for i in range(bar_length):
+        if i < int(bar_length * percent):
+            progress += "="
+        else:
+            progress += " "
+    sys.stdout.write("[ %s ] %.2f%%" % (progress, percent * 100))
+    sys.stdout.flush()
 
 
 if __name__ == "__main__":
@@ -74,7 +87,8 @@ database. For further information on this see http://timewarrior.net/some/url.
     print("Exporting database...")
     intervals = json.loads(subprocess.check_output(["timew", "export"]).decode("UTF-8").strip())
 
-    print("Extracted %d interval(s)" % len(intervals))
+    interval_count = len(intervals)
+    print("Extracted %d interval(s)" % interval_count)
 
     # purge database
     print("Purging database...")
@@ -85,12 +99,18 @@ database. For further information on this see http://timewarrior.net/some/url.
 
     # import database
     print("Re-importing database...")
+    print("(This may take some time, please be patient)")
+    counter = 0
 
     for interval in intervals:
+        counter += 1
+        ratio = float(counter)/interval_count
+        draw_progress_bar(ratio, 20)
+
         if "start" in interval:
             print(subprocess.check_output(["timew", "start", interval["start"]]).decode("UTF-8"))
         if "end" in interval:
             print(subprocess.check_output(["timew", "stop", interval["end"]]).decode("UTF-8"))
 
-    print("Done!")
+    print("\nDone!")
     exit(0)
