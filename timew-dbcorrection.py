@@ -45,8 +45,8 @@ if __name__ == "__main__":
 TIMEWARRIOR DATABASE CORRECTION SCRIPT
 
 Use this script when you have used
-- TimeWarrior before version 1.1.1
-- exclusions
+ - TimeWarrior before version 1.1.1
+ - exclusions
 
 If none of the above applies, you probably do not need to run this script.
 
