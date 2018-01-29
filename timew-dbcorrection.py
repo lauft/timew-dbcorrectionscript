@@ -21,9 +21,10 @@ if __name__ == "__main__":
     version_array = get_version().split(".")
     major_version = int(version_array[0])
     minor_version = int(version_array[1])
+    patch_version = int(version_array[2])
 
-    if major_version <= 1 and minor_version == 0:
-        print("This script requires TimeWarrior version 1.1.0 or larger!")
+    if major_version <= 1 and minor_version <= 1 and patch_version < 1:
+        print("This script requires TimeWarrior version 1.1.1 or larger!")
         exit(1)
 
     # show disclaimer
