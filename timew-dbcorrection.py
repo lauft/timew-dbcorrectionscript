@@ -71,7 +71,8 @@ database. For further information on this see http://timewarrior.net/some/url.
     database_path = os.getenv("TIMEWARRIORDB", os.path.expanduser("~/.timewarrior"))
     files = os.listdir(os.path.join(database_path, "data"))
 
-    print("Database path: '%s' (you can change this by setting environment variable TIMEWARRIORDB)" % database_path)
+    print("Database path: '%s'" % database_path)
+    print("(you can change this by setting environment variable TIMEWARRIORDB)")
     print("Found files: %s" % ", ".join(files))
     print("")
     print("The script will now extract your data, purge your database, and re-enter your intervals.")
@@ -91,10 +92,12 @@ database. For further information on this see http://timewarrior.net/some/url.
     print("Extracted %d interval(s)" % interval_count)
 
     # purge database
-    print("Purging database...")
+    print("Purging database (" + os.path.join(database_path, "data") + ")...")
 
     for file in files:
-        print("Deleting " + os.path.join(database_path, "data", file))
+        sys.stdout.write("Deleting %s" % file)
+        sys.stdout.write("\r")
+        sys.stdout.flush()
         os.remove(os.path.join(database_path, "data", file))
 
     # import database
