@@ -111,9 +111,9 @@ database. For further information on this see http://timewarrior.net/some/url.
         draw_progress_bar(ratio, 20)
 
         if "start" in interval:
-            print(subprocess.check_output(["timew", "start", interval["start"]]).decode("UTF-8"))
+            subprocess.check_output(["timew", "start", interval["start"]]).decode("UTF-8")
         if "end" in interval:
-            print(subprocess.check_output(["timew", "stop", interval["end"]]).decode("UTF-8"))
+            subprocess.check_output(["timew", "stop", interval["end"]]).decode("UTF-8")
 
     print("\nDone!")
     exit(0)
