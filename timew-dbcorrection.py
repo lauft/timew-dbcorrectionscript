@@ -14,7 +14,8 @@ except NameError:
 
 
 def get_version():
-    return subprocess.check_output(["timew", "--version"]).decode("UTF-8").strip()
+    timew_binary = os.getenv("TIMEW_BIN", "timew")
+    return subprocess.check_output([timew_binary, "--version"]).decode("UTF-8").strip()
 
 
 def draw_progress_bar(percent, bar_length=20):
@@ -69,9 +70,12 @@ database. For further information on this see http://timewarrior.net/some/url.
     # gather data and print diagnostics
     print("Gathering information...")
 
+    timew_binary = os.getenv("TIMEW_BIN", "timew")
     database_path = os.getenv("TIMEWARRIORDB", os.path.expanduser("~/.timewarrior"))
+
     files = os.listdir(os.path.join(database_path, "data"))
 
+    print("TimeWarrior binary: '%s'" % timew_binary)
     print("TimeWarrior version: '%s'" % version_string)
     print("Database path: '%s'" % database_path)
     print("(you can change this by setting environment variable TIMEWARRIORDB)")
@@ -88,7 +92,7 @@ database. For further information on this see http://timewarrior.net/some/url.
 
     # export database
     print("Exporting database...")
-    intervals = json.loads(subprocess.check_output(["timew", "export"]).decode("UTF-8").strip())
+    intervals = json.loads(subprocess.check_output([timew_binary, "export"]).decode("UTF-8").strip())
 
     interval_count = len(intervals)
     print("Extracted %d interval(s)" % interval_count)
@@ -114,11 +118,11 @@ database. For further information on this see http://timewarrior.net/some/url.
 
         if "start" in interval:
             if 'tags' in interval:
-                subprocess.check_output(["timew", "start", interval["start"]] + interval['tags']).decode("UTF-8")
+                subprocess.check_output([timew_binary, "start", interval["start"]] + interval['tags']).decode("UTF-8")
             else:
-                subprocess.check_output(["timew", "start", interval["start"]]).decode("UTF-8")
+                subprocess.check_output([timew_binary, "start", interval["start"]]).decode("UTF-8")
         if "end" in interval:
-            subprocess.check_output(["timew", "stop", interval["end"]]).decode("UTF-8")
+            subprocess.check_output([timew_binary, "stop", interval["end"]]).decode("UTF-8")
 
     print("\nDone!")
     exit(0)
