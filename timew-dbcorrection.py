@@ -31,7 +31,8 @@ def draw_progress_bar(percent, bar_length=20):
 
 if __name__ == "__main__":
     # check version
-    version_array = get_version().split(".")
+    version_string = get_version()
+    version_array = version_string.split(".")
     major_version = int(version_array[0])
     minor_version = int(version_array[1])
     patch_version = int(version_array[2])
@@ -71,6 +72,7 @@ database. For further information on this see http://timewarrior.net/some/url.
     database_path = os.getenv("TIMEWARRIORDB", os.path.expanduser("~/.timewarrior"))
     files = os.listdir(os.path.join(database_path, "data"))
 
+    print("TimeWarrior version: '%s'" % version_string)
     print("Database path: '%s'" % database_path)
     print("(you can change this by setting environment variable TIMEWARRIORDB)")
     print("Found files: %s" % ", ".join(files))
