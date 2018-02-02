@@ -47,16 +47,22 @@ if __name__ == "__main__":
 TIMEWARRIOR DATABASE CORRECTION SCRIPT
 
 Use this script when you have used
- - TimeWarrior before version 1.1.1
- - exclusions
+ - TimeWarrior earlier than version 1.1.1
+ - Exclusions
 
 If none of the above applies, you probably do not need to run this script.
 
-This script will export your stored intervals, purge your database and re-enter
-your data such that exclusions will be applied and properly written to the
-database. For further information on this see http://timewarrior.net/some/url.
+The script will only correct the database for ONE set of exclusions. If you
+have changed your exclusions
 
-!!! YOU ARE STRONGLY ADVISED TO BACKUP YOUR TIMEWARRIOR DATABASE BEFORE PROCEEDING !!!
+This script will export your stored intervals, purge your database and re-enter
+your data such that exclusions will be applied and written properly to the
+database.
+
+For further information on this see 
+https://taskwarrior.org/docs/timewarrior/dbcorrection.html
+
+!!! YOU ARE STRONGLY ADVISED TO BACKUP YOUR DATABASE BEFORE PROCEEDING !!!
 
 """)
 
