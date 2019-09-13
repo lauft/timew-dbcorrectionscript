@@ -53,7 +53,7 @@ Use this script when you have used
 If none of the above applies, you probably do not need to run this script.
 
 The script will only correct the database for ONE set of exclusions. If you
-have changed your exclusions
+have changed your exclusions only the current state will be restored!
 
 This script will export your stored intervals, purge your database and re-enter
 your data such that exclusions will be applied and written properly to the
