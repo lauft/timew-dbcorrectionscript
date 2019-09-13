@@ -81,11 +81,17 @@ https://taskwarrior.org/docs/timewarrior/dbcorrection.html
 
     files = os.listdir(os.path.join(database_path, "data"))
 
+    export_data_file = os.getenv("TIMEW_EXPORT_DATA", None)
+
     print("TimeWarrior binary: '%s'" % timew_binary)
     print("TimeWarrior version: '%s'" % version_string)
     print("Database path: '%s'" % database_path)
     print("(you can change this by setting environment variable TIMEWARRIORDB)")
     print("Found files: %s" % ", ".join(files))
+
+    if export_data_file is not None:
+        print("Supplied data file: {}".format(export_data_file))
+
     print("")
     print("The script will now extract your data, purge your database, and re-enter your intervals.")
 
@@ -96,10 +102,18 @@ https://taskwarrior.org/docs/timewarrior/dbcorrection.html
         print("Exiting script")
         exit(0)
 
-    # export database
-    print("Exporting database...")
-    intervals = json.loads(subprocess.check_output([timew_binary, "export"]).decode("UTF-8").strip())
+    if export_data_file is None:
+        # export database
+        print("Exporting database...")
+        data = subprocess.check_output([timew_binary, "export"]).decode("UTF-8").strip()
+    else:
+        # load data from supplied file
+        print("Loading data from '{}'".format(export_data_file))
+        with open(export_data_file) as f:
+            data = f.read().strip()
 
+    # extract intervals
+    intervals = json.loads(data)
     interval_count = len(intervals)
     print("Extracted %d interval(s)" % interval_count)
 
