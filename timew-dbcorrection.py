@@ -112,8 +112,26 @@ https://taskwarrior.org/docs/timewarrior/dbcorrection.html
         with open(export_data_file) as f:
             data = f.read().strip()
 
-    # extract intervals
-    intervals = json.loads(data)
+    try:
+        # extract intervals
+        intervals = json.loads(data)
+    except Exception as e:
+        print("")
+        print("Something went wrong while importing your data:")
+        print("")
+        print(e)
+        print("""
+Try to export your data into a file (e.g. `timew export > data.json`) and check
+the JSON data. (The error message above might give you a hint on which line to
+look at.)
+
+When you have fixed your data, rerun this script providing the corrected JSON
+via the environment variable `TIMEW_EXPORT_DATA`:
+
+    $ TIMEW_EXPORT_DATA=path/to/data.json ./timew-dbcorrection.py
+""")
+        exit(1)
+
     interval_count = len(intervals)
     print("Extracted %d interval(s)" % interval_count)
 
