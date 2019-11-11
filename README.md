@@ -32,7 +32,7 @@ $ TIMEW_EXPORT_DATA=path/to/data.json python timew-dbcorrection.py
 
 ## Limitations
 This script can only correct for **one** set of exclusions.
-If you have changed your exclusions in the past, please contact support@taskwarrior.org.
+If you have changed your exclusions in the past, please contact [support@taskwarrior.org](mailto:support@taskwarrior.org).
 
 ## Important
 !!! YOU ARE STRONGLY ADVISED TO BACKUP YOUR TIMEWARRIOR DATABASE BEFORE RUNNING THIS SCRIPT !!!
